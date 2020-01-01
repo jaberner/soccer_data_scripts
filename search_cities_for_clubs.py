@@ -9,8 +9,9 @@ import os
 
 old_clubs = []
 new_clubs = []
-club_end = 282          #number of last record already in CLUBS database table
 cities = []             #array to hold CITY NAMES already in database
+
+club_end = 282          #number of last record already in CLUBS database table
 
 
 ## Open soccermap.txt.  Contains rows of data from my old database
