@@ -16,7 +16,7 @@ import os
 
 cities = []
 old_players = []
-new_clubs = [];
+new_players = [];
 
 a = open("C:/Soccer/soccermap.txt", "r")
 text = a.readlines()
@@ -48,11 +48,11 @@ for row in cur.fetchall():                                              #step th
                 if info[9] in cities:                                                                           #and if the birth city in the line of the old text file is already in the database ->
                         player_file2.write("UPDATE player SET city_id = (SELECT city_id FROM city WHERE city_name = '" + info[9] + "') WHERE player_id = " + str(row[0]) + ";\n")                     #UPDATE city_id in player table
                 else:                                       #else ->
-                        if info[9] in new_clubs:                    #already added - > pass
+                        if info[9] in new_players:                    #already added - > pass
                                 pass
                         else:
                                 player_file2.write("INSERT INTO city (city_name, country_id, X, Y) VALUES ('" + info[9] + "',(SELECT country_id FROM country WHERE country_name = '" + info[10] + "'), " + info[16] + ", " + info[15] + ");\n")                             #INSERT city into city table
-                                new_clubs.append(info[9])               #else - > INSERT new city if city not already in database
+                                new_players.append(info[9])               #else - > INSERT new city if city not already in database
                                 
 db.close()
 
