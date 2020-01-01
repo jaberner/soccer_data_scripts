@@ -6,16 +6,10 @@
 import MySQLdb
 import os
 
-clubs_db = []
+
 old_clubs = []
 new_clubs = []
-club_end = 282
-
-players_db = []
-old_players = []
-
-player_end = 705        #last record already in PLAYERS database table
-
+club_end = 282          #number of last record already in CLUBS database table
 cities = []             #array to hold CITY NAMES already in database
 
 
@@ -24,7 +18,6 @@ a = open("C:/Soccer/soccermap.txt", "r")
 text = a.readlines()
 for line in text:
         info = line.split("^")
-        old_players.append(info[3])     #add player names to '' array
         old_clubs.append(info[4])       #add club names to 'old_clubs' array
 
 
@@ -34,7 +27,6 @@ db = MySQLdb.connect(host="localhost",    # host
                      db="soccer")         # name of the data base
 
 club_file2 = open("C:/Soccer/clubs2.txt", "w")          #textfile that will hold UPDATE SQL statements for CLUBS
-player_file2 = open("C:/Soccer/players2.txt", "w")      #textfile that will hold UPDATE SQL statements for PLAYERS
 
 
 #SELECT all CITIES from database and add city names to 'cities' array
