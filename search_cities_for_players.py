@@ -1,3 +1,15 @@
+#   Processes data copied from Wikipedia.org for all of the...
+#   soccer players on the rosters of teams participating in...
+#   major international tournaments (ie. the FIFA World Cup)
+
+#Mines and old personal datbase.
+#Searches old database for PLAYER names that match players...
+#that need to be added to new database.  If a match is...
+#found, the city where the player was born is added to...
+#the new database if necessary OR if already in the new...
+#database, the 'city_id' field is added where necessary.
+
+
 import MySQLdb
 import os
 
@@ -12,7 +24,7 @@ for line in text:
         old_players.append(info[3])
 
 
-db = MySQLdb.connect(host="localhost",    # host, usually localhost
+db = MySQLdb.connect(host="localhost",    # host
                      user="root",         # username
                      passwd="",           # password
                      db="soccer")         # name of the data base
