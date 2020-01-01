@@ -2,14 +2,21 @@
 #   soccer players on the rosters of teams participating in...
 #   major international tournaments (ie. the FIFA World Cup)
 
+#Mines and old personal datbase.
+#Searches old database for CLUB names that match clubs...
+#that need to be added to new database.  If a match is...
+#found, the city where the club is located is added to...
+#the new database if necessary OR if already in the new...
+#database, the 'city_id' field is added where necessary.
+
 
 import MySQLdb
 import os
 
 
-old_clubs = []
-new_clubs = []
-cities = []             #array to hold CITY NAMES already in database
+old_clubs = []          #array to hold CLUB names that exist in old database
+new_clubs = []          #array to hold CLUB names that are being added to new datbase
+cities = []             #array to hold CITY names already in database
 
 club_end = 282          #number of last record already in CLUBS database table
 
@@ -36,8 +43,8 @@ cur.execute("SELECT * FROM city")
 for row in cur.fetchall():
     cities.append(row[1])
     
-#Select all new clubs being added to database. 
-cur.execute("SELECT * FROM club WHERE club_id > 282")
+#Select all NEW clubs being added to database. 
+cur.execute("SELECT * FROM club WHERE club_id > " + str(club_end))
 for row in cur.fetchall():                              #step through new clubs
     if row[1] in old_clubs:                             #if club name appears in the old list (existed in old database) ->
         for line in text:                               #step through each line of old text file
