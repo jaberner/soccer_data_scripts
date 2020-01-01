@@ -18,6 +18,9 @@ cities = []             #array to hold CITY names already in database
 old_players = []        #array to hold PLAYER names that exist in old database
 new_players = [];       #array to hold PLAYER names that are being added to new datbase
 
+player_end = 705        #number of last record already in PLAYERS database table
+
+
 # Open soccermap.txt.  Contains rows of data from my old database (to be mined)
 a = open("C:/Soccer/soccermap.txt", "r")
 text = a.readlines()
@@ -41,7 +44,7 @@ for row in cur.fetchall():
     cities.append(row[1])      
         
 #Select all NEW players being added to database.
-cur.execute("SELECT * FROM player WHERE player_id > 705")
+cur.execute("SELECT * FROM player WHERE player_id > " + str(player_end))
 for row in cur.fetchall():                                                      #step through new players
     if row[1] in old_players:                                                   #if player name appears in the old list ->
         for line in text:                                                       #step through each line of old text file
