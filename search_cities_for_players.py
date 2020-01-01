@@ -13,8 +13,9 @@
 import MySQLdb
 import os
 
-old_players = []
+
 cities = []
+old_players = []
 new_clubs = [];
 
 a = open("C:/Soccer/soccermap.txt", "r")
@@ -32,9 +33,7 @@ db = MySQLdb.connect(host="localhost",    # host
 player_file2 = open("C:/Soccer/players2.txt", "w")
 
 cur = db.cursor()
-
 cur.execute("SELECT * FROM city")
-
 for row in cur.fetchall():
     cities.append(row[1])      
         
