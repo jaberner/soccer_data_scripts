@@ -8,8 +8,10 @@
 import MySQLdb
 import os
 
-insert_file = open("C:/Soccer/player_tournament2.txt", "w")
-a = open("C:/Soccer/new.txt", "r")
+
+#textfiles
+insert_file = open("C:/Soccer/player_tournament2.txt", "w") #textfile with raw data copied from Wikipedia.org
+a = open("C:/Soccer/new.txt", "r")                          #holds processed data, lines of INSERT SQL statements
 
 db = MySQLdb.connect(host="localhost",    # host
                      user="root",         # username
