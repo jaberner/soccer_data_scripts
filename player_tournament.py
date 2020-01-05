@@ -1,3 +1,10 @@
+#   Processes data copied from Wikipedia.org for all of the...
+#   soccer players on the rosters of teams participating in...
+#   major international tournaments (ie. the FIFA World Cup)
+
+
+
+
 import MySQLdb
 import os
 
