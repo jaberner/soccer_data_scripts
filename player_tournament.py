@@ -49,8 +49,8 @@ for line in text:
         league = str(row[0])                #'league' has to be that one
     else:
         league = "error: " + info[6].rstrip("\n")   #no leauge in database for that country -> ERROR
-    n = info[3].find(")")
-    age = info[3][n-2:n]
+    n = info[3].find(")")   #gets index of ')' in order to extract player's age
+    age = info[3][n-2:n]    #extracts player's age from raw text
     cur.execute("SELECT club_id FROM club WHERE club_name = '" + info[6].rstrip("\n") + "'")
     if cur.rowcount == 1:
         row = cur.fetchone()
