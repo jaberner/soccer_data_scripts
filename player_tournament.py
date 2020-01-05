@@ -25,21 +25,23 @@ cur = db.cursor()
 text = data_file.readlines()
 for line in text:
     info = line.split("\t")     #tab deliminated
+    #select player from database and get player_id
     cur.execute("SELECT player_id FROM player WHERE player_name = '" + info[2] + "'")
     if cur.rowcount == 1:
         row = cur.fetchone()
-        player = str(row[0])
-    else:
+        player = str(row[0])    #player_id
+    else:       #player not in database
         player = "error: " + info[2].rstrip("\n")
     print(player)
+    #gets ALL the info (id numbers) related to the player's club team from the database
     cur.execute("SELECT * FROM league WHERE league.country_id = (" + \
             "SELECT country.country_id FROM country WHERE country.country_id = (" + \
 		"SELECT city.country_id FROM city WHERE city.city_id = (" + \
 			"SELECT club.city_id FROM club WHERE club.club_name = '" + info[6].rstrip("\n") + "')));")
-    if cur.rowcount > 1:
+    if cur.rowcount > 1:    #in some cases more than one league in database per country
         for row in cur.fetchall():
-            if row[2] == 1:
-                league = "*" + str(row[0])
+            if row[2] == 1:                 #if league is TOP division -> choose it
+                league = "*" + str(row[0])  #but add '*' in order to flag it, manually check it's the correct league later
             else:
                 pass
     elif cur.rowcount == 1:
