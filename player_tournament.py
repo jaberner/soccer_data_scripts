@@ -20,9 +20,11 @@ db = MySQLdb.connect(host="localhost",    # host
                      db="soccer")         # name of the data base
 
 cur = db.cursor()
+
+#read data copied from Wikipedia
 text = data_file.readlines()
 for line in text:
-    info = line.split("\t")
+    info = line.split("\t")     #tab deliminated
     cur.execute("SELECT player_id FROM player WHERE player_name = '" + info[2] + "'")
     if cur.rowcount == 1:
         row = cur.fetchone()
