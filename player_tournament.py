@@ -10,8 +10,9 @@ import os
 
 
 #textfiles
-insert_file = open("C:/Soccer/player_tournament2.txt", "w") #holds processed data, lines of INSERT SQL statements
 data_file = open("C:/Soccer/new.txt", "r")                          #textfile with raw data copied from Wikipedia.org
+insert_file = open("C:/Soccer/player_tournament2.txt", "w")         #holds processed data, lines of INSERT SQL statements
+
 
 db = MySQLdb.connect(host="localhost",    # host
                      user="root",         # username
