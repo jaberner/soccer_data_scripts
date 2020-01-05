@@ -9,15 +9,16 @@ import MySQLdb
 import os
 
 insert_file = open("C:/Soccer/player_tournament2.txt", "w")
+a = open("C:/Soccer/new.txt", "r")
 
-db = MySQLdb.connect(host="localhost",    # host, usually localhost
+db = MySQLdb.connect(host="localhost",    # host
                      user="root",         # username
                      passwd="",           # password
                      db="soccer")         # name of the data base
 
 cur = db.cursor()
 
-a = open("C:/Soccer/new.txt", "r")
+
 text = a.readlines()
 for line in text:
     info = line.split("\t")
