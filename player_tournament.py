@@ -11,7 +11,7 @@ import os
 
 #textfiles
 insert_file = open("C:/Soccer/player_tournament2.txt", "w") #holds processed data, lines of INSERT SQL statements
-a = open("C:/Soccer/new.txt", "r")                          #textfile with raw data copied from Wikipedia.org
+data_file = open("C:/Soccer/new.txt", "r")                          #textfile with raw data copied from Wikipedia.org
 
 db = MySQLdb.connect(host="localhost",    # host
                      user="root",         # username
@@ -19,7 +19,7 @@ db = MySQLdb.connect(host="localhost",    # host
                      db="soccer")         # name of the data base
 
 cur = db.cursor()
-text = a.readlines()
+text = data_file.readlines()
 for line in text:
     info = line.split("\t")
     cur.execute("SELECT player_id FROM player WHERE player_name = '" + info[2] + "'")
@@ -59,6 +59,6 @@ for line in text:
  
 db.close()
 insert_file.close()
-a.close()
+data_file.close()
 
 
