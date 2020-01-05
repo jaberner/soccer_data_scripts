@@ -42,13 +42,13 @@ for line in text:
         for row in cur.fetchall():
             if row[2] == 1:                 #if league is TOP division -> choose it
                 league = "*" + str(row[0])  #but add '*' in order to flag it, manually check it's the correct league later
-            else:
+            else:                               #if not TOP division league -> pass
                 pass
-    elif cur.rowcount == 1:
+    elif cur.rowcount == 1:                 #only one league in database for the country
         row = cur.fetchone()
-        league = str(row[0])
+        league = str(row[0])                #'league' has to be that one
     else:
-        league = "error: " + info[6].rstrip("\n")
+        league = "error: " + info[6].rstrip("\n")   #no leauge in database for that country -> ERROR
     n = info[3].find(")")
     age = info[3][n-2:n]
     cur.execute("SELECT club_id FROM club WHERE club_name = '" + info[6].rstrip("\n") + "'")
