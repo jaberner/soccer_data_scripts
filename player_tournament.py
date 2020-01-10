@@ -49,14 +49,18 @@ for line in text:
         league = str(row[0])                #'league' has to be that one
     else:
         league = "error: " + info[6].rstrip("\n")   #no leauge in database for that country -> ERROR
-    n = info[3].find(")")   #gets index of ')' in order to extract player's age
+    n = info[3].find(")")   #gets index of ')' from text in order to extract player's age
     age = info[3][n-2:n]    #extracts player's age from raw text
+    #get 'club_id'
     cur.execute("SELECT club_id FROM club WHERE club_name = '" + info[6].rstrip("\n") + "'")
     if cur.rowcount == 1:
         row = cur.fetchone()
-        club = str(row[0])
+        club = str(row[0])  #'club' holds club_id value
     else:
         club = "error: " + info[6].rstrip("\n")
+    #makes INSERT statements for data that will be in table PLAYER_TOURNAMENT
+    #one record for each player in every tournament
+    #mostly foreign key values (player_id, club_id, league_id) and info specific to players for each tournament (number, age, position)
     insert_file.write("INSERT INTO player_tournament (player_id, tournament_id, position, number, age, club_id, league_id) VALUES (" + player + ", 2, '" +  \
                       info[1].rstrip(" ") + "', " + info[0].rstrip(" ") + ", " + age + ", " + club + ", " + league + ");\n")
 
