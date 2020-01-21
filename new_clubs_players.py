@@ -15,12 +15,12 @@ import os
 #arrays
 clubs = []          #holds CLUB names that appear in data from Wikipedia
 clubs_db = []       #holds CLUB names that already exist in database
-clubs_no_db = []    #holds CLUB names that don't already exist in database
+clubs_no_db = []    #holds CLUB names that don't exist in database
 
 #arrays
 players = []        #holds PLAYER names that appear in data from Wikipedia
 players_db = []     #holds PLAYER names that already exist in database
-players_no_db = []  #holds PLAYER names that don't already exist in database
+players_no_db = []  #holds PLAYER names that don't exist in database
 
 #open textfile with data copied from Wikipedia
 a = open("C:/Soccer/new.txt", "r")
