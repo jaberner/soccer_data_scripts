@@ -10,7 +10,7 @@ clubs_geojson = open("C:/Soccer/clubs_geojson.geojson", "w")              #textf
 country_num = 9
 tournament_num = 3
 
-#class for members of team
+#for members of team
 class Player:
     name = ""
     position = ""
@@ -22,6 +22,10 @@ class Player:
     birthplace_country = ""
     birthplace_x = ""
     birthplace_y = ""
+
+#for clubs
+class Club:
+    name = ""
     club_location = ""
     club_location_x = ""
     club_location_y = ""
@@ -49,10 +53,13 @@ cur.execute("SELECT * FROM player " + \
 
 players_geojson.write("{\n  " + '"type"' + ": " + '"FeatureCollection"' + ",\n  ")
 players_geojson.write('"features"' + ": [\n    ")
+clubs_geojson.write("{\n  " + '"type"' + ": " + '"FeatureCollection"' + ",\n  ")
+clubs_geojson.write('"features"' + ": [\n    ")
 
-#step through result set, write geojson file
+#step through result set, write geojson files
 for row in cur.fetchall():
     soccer_player = Player()
+    club_team = Club()
     soccer_player.name = row[1]
     soccer_player.position = row[7]
     soccer_player.number = row[8]
@@ -63,9 +70,10 @@ for row in cur.fetchall():
     soccer_player.birthplace_country = row[29]
     soccer_player.birthplace_x = row[26]
     soccer_player.birthplace_y = row[27]
-    soccer_player.club_location = row[17]
-    soccer_player.club_location_x = row[20]
-    soccer_player.club_location_y = row[21]
+    club_team.name = row[13]
+    club_team.club_location = row[17]
+    club_team.club_location_x = row[20]
+    club_team.club_location_y = row[21]
     players_geojson.write("{\n  " + '"type"' + ": " + '"Feature"' + ",\n    ")
     players_geojson.write('"geometry"' + ": {\n      ")
     players_geojson.write('"type"' + ": " + '"Point"' + ",\n      ")
@@ -82,10 +90,28 @@ for row in cur.fetchall():
     players_geojson.write('"birthplace_country"' + ": " + '"' + soccer_player.birthplace_country + '"' + "\n    ")
     players_geojson.write("}\n  ")
     players_geojson.write("},\n  ")
+    clubs_geojson.write("{\n  " + '"type"' + ": " + '"Feature"' + ",\n    ")
+    clubs_geojson.write('"geometry"' + ": {\n      ")
+    clubs_geojson.write('"type"' + ": " + '"Point"' + ",\n      ")
+    clubs_geojson.write('"coordinates"' + ": [" + str(club_team.club_location_y) + ", " + str(club_team.club_location_x) + "]\n    ")
+    clubs_geojson.write("},\n    ")
+    clubs_geojson.write('"properties"' + ": {\n      ")
+    clubs_geojson.write('"name"' + ": " + '"' + soccer_player.name + '"' + ",\n      ")
+    clubs_geojson.write('"position"' + ": " + '"' + soccer_player.position + '"' + ",\n      ")
+    clubs_geojson.write('"number"' + ": " + '"' + soccer_player.number + '"' + ",\n      ")
+    clubs_geojson.write('"age"' + ": " + '"' + soccer_player.age + '"' + ",\n      ")
+    clubs_geojson.write('"club"' + ": " + '"' + soccer_player.club + '"' + ",\n      ")
+    clubs_geojson.write('"league"' + ": " + '"' + soccer_player.league + '"' + ",\n      ")
+    clubs_geojson.write('"club_location"' + ": " + '"' + club_team.club_location + '"' + ",\n      ")
+    clubs_geojson.write("}\n  ")
+    clubs_geojson.write("},\n  ")
     print(soccer_player.birthplace_country)
+    
 
 players_geojson.write("  ]\n")
 players_geojson.write("}")
+clubs_geojson.write("  ]\n")
+clubs_geojson.write("}")
 
 
 db.close()
