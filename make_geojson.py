@@ -50,7 +50,7 @@ cur.execute("SELECT * FROM player " + \
 players_geojson.write("{\n  " + '"type"' + ": " + '"FeatureCollection"' + ",\n  ")
 players_geojson.write('"features"' + ": [\n    ")
 
-#step through result set
+#step through result set, write geojson file
 for row in cur.fetchall():
     soccer_player = Player()
     soccer_player.name = row[1]
